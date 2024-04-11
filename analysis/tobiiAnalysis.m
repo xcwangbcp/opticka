@@ -46,6 +46,8 @@ classdef tobiiAnalysis < analysisCore
 		pixelsPerCm double							= 32
 		%> screen distance
 		distance double								= 57.3
+        pupilsize
+        timerange
 	end
 
 	properties (Hidden = true)
@@ -473,12 +475,12 @@ classdef tobiiAnalysis < analysisCore
 				xp = xa(ip);
 				yp = ya(ip);
 				pupilPlot = pupilAll(ip);
-				if ~isempty(ib)
-					pb = nanmean(pupilAll(ib));
-					if isnumeric(pb)
-						pupilPlot = pupilPlot - pb;
-					end
-				end
+				% if ~isempty(ib)
+				% 	pb = nanmean(pupilAll(ib));
+				% 	if isnumeric(pb)
+					% 	pupilPlot = pupilPlot - pb;
+				% 	end
+				% end
 
 				q(1,1).select();
 				q(1,1).hold('on')
@@ -510,7 +512,8 @@ classdef tobiiAnalysis < analysisCore
 				qq(1,2).select();
 				qq(1,2).hold('on')
 				plot(tp,pupilPlot,'Color',c, 'UserData',[thisTrial.idx thisTrial.correctedIndex thisTrial.variable],'ButtonDownFcn', @clickMe);
-				
+				me.pupilsize=pupilPlot;
+                me.timerange=tp;
 				idxt = find(t >= t1 & t <= t2);
 
 				tvals{a} = t(idxt);
