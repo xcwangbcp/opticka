@@ -47,7 +47,11 @@ classdef tobiiAnalysis < analysisCore
 		%> screen distance
 		distance double								= 57.3
         pupilsize
+
         timerange
+
+        t_pupilsize
+
 	end
 
 	properties (Hidden = true)
@@ -512,8 +516,12 @@ classdef tobiiAnalysis < analysisCore
 				qq(1,2).select();
 				qq(1,2).hold('on')
 				plot(tp,pupilPlot,'Color',c, 'UserData',[thisTrial.idx thisTrial.correctedIndex thisTrial.variable],'ButtonDownFcn', @clickMe);
+
 				me.pupilsize=pupilPlot;
                 me.timerange=tp;
+				% me.tp=tp;
+                % me.pupilPlot=pupilPlot;
+
 				idxt = find(t >= t1 & t <= t2);
 
 				tvals{a} = t(idxt);
